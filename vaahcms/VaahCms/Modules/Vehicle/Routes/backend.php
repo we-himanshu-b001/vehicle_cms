@@ -32,3 +32,5 @@ Route::group(
  * Include CRUD Routes
  */
 include("backend/routes-vehicles.php");
+include("backend/routes-taxonomies.php");
+

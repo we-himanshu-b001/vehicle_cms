@@ -9,7 +9,7 @@ const useVaah = vaah();
 
 <template>
 
-    <div v-if="store.list && store.list.data.length">
+    <div v-if="store.list">
         <!--table-->
          <DataTable :value="store.list.data"
                    dataKey="id"

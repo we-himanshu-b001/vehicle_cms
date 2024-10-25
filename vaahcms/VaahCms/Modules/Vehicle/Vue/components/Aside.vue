@@ -33,6 +33,11 @@ const items = ref([
                 icon: 'fa-regular fa-chart-bar',
                 route: "/vehicles"
             },
+            {
+                label: 'Taxonomies',
+                icon: 'fa-regular fa-chart-bar',
+                route: "/taxonomies"
+            },
         ]
     },
 ]);
