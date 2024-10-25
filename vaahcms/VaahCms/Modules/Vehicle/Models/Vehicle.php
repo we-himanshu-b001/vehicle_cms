@@ -34,7 +34,8 @@ class Vehicle extends VaahModel
         'mileage',
         'fuel_type',
         'transmission',
-        'price'
+        'price',
+        'country_id'
     ];
     //-------------------------------------------------
     protected $fill_except = [

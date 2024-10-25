@@ -214,6 +214,10 @@ const toggleFormMenu = (event) => {
                 </VhField>
 
 
+                <VhField label="Country Origin">
+                    <Dropdown  v-model="store.item.country_id" :options="store.assets.country_list" optionLabel="name" optionValue="id" placeholder="Select a City" class="w-full md:w-14rem" />
+                </VhField>
+
 
                 <VhField label="Fuel Type">
 

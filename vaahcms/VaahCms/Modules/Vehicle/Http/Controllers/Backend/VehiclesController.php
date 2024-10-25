@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use VaahCms\Modules\Vehicle\Models\Vehicle;
+use WebReinvent\VaahCms\Models\Taxonomy;
 
 
 class VehiclesController extends Controller
@@ -16,6 +17,12 @@ class VehiclesController extends Controller
     }
 
     //----------------------------------------------------------
+    public function taxo(){
+        $taxonomy_type_slug = 'countries';
+        $active_taxonomies = Taxonomy::getTaxonomyByType($taxonomy_type_slug);
+        return $active_taxonomies;
+    }
+
 
     public function getAssets(Request $request)
     {
@@ -30,7 +37,7 @@ class VehiclesController extends Controller
             $data['fillable']['columns'] = Vehicle::getFillableColumns();
             $data['fillable']['except'] = Vehicle::getUnFillableColumns();
             $data['empty_item'] = Vehicle::getEmptyItem();
-
+            $data['country_list'] = $this->taxo();
             $data['actions'] = [];
 
             $response['success'] = true;
