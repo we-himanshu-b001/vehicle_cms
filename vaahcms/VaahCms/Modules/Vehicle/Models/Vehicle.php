@@ -115,6 +115,13 @@ class Vehicle extends VaahModel
         )->select('id', 'uuid', 'first_name', 'last_name', 'email');
     }
 
+    public function country()
+    {
+        return $this->belongsTo(Taxonomy::class,
+            'country_id', 'id'
+        )->select('id', 'name');
+    }
+
     //-------------------------------------------------
     public function getTableColumns()
     {
@@ -456,7 +463,7 @@ class Vehicle extends VaahModel
     {
 
         $item = self::where('id', $id)
-            ->with(['createdByUser', 'updatedByUser', 'deletedByUser'])
+            ->with(['country','createdByUser', 'updatedByUser', 'deletedByUser'])
             ->withTrashed()
             ->first();
 

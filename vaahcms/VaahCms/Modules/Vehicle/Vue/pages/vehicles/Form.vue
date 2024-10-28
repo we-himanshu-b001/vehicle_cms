@@ -21,8 +21,8 @@ onMounted(async () => {
 
     await store.getFormMenu();
 
-    await store.getFuelType();
-    console.log(store);
+    // await store.getFuelType();
+    // console.log(store);
 });
 const price = computed({
     get() {
@@ -232,7 +232,7 @@ const toggleFormMenu = (event) => {
 
                 <VhField label="Fuel Type">
 
-                    <Dropdown v-model="store.item.fuel_type" :options="store.item.fuel_type_list" optionLabel="name" optionValue="value" placeholder="Select a type" class="w-full " />
+                    <Dropdown v-model="store.item.fuel_type" :options="store.assets.fuel_type_list" optionLabel="name" optionValue="value" placeholder="Select a type" class="w-full " />
 <!--                    <select-->
 <!--                            class="w-full p-inputtext"-->
 <!--                            name="vehicles-fuel-type"-->

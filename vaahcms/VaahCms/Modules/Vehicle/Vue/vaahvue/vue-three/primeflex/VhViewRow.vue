@@ -35,15 +35,19 @@ const props = defineProps({
                 <Button icon="pi pi-copy" @click="vaah().copy(value)" class=" p-button-text"></Button>
             </td>
         </template>
-        <template v-else-if="type==='user'">
-            <td colspan="2" >
-
+<!--        <template v-else-if="type==='user'">-->
+        <template v-else-if="typeof value === 'object' && value !== null">
+            <td v-if="type !== 'user'" colspan="2">
+                <template v-if="typeof value === 'object' && value !== null">
+                        {{value.name}}
+                </template>
+            </td>
+            <td v-else colspan="2" >
                 <template v-if="typeof value === 'object' && value !== null">
                     <Button  @click="vaah().copy(value.id)"  class="p-button-outlined p-button-secondary p-button-sm">
                         {{value.name}}
                     </Button>
                 </template>
-
             </td>
         </template>
         <template v-else-if="type==='yes-no'">

@@ -247,7 +247,7 @@ export const useVehicleStore = defineStore({
             }
             await this.getItemMenu();
             await this.getFormMenu();
-            await this.getFuelType();
+            // await this.getFuelType();
         },
         //---------------------------------------------------------------------
         isListActionValid()

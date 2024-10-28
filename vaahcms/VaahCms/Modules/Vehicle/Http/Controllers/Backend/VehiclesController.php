@@ -43,6 +43,13 @@ class VehiclesController extends Controller
                 ['name' => 'Automatic', 'value' => 'Automatic'],
                 ['name' => 'Manual', 'value' => 'Manual']
             ];
+            $data['fuel_type_list'] = [
+                ['name' => 'Petrol', 'value' => 'petrol'],
+                ['name' => 'Diesel', 'value' => 'diesel'],
+                ['name' => 'Electric', 'value' => 'electric'],
+                ['name' => 'CNG', 'value' => 'cng'],
+                ['name' => 'Hybrid', 'value' => 'hybrid']
+            ];
 
             $response['success'] = true;
             $response['data'] = $data;
