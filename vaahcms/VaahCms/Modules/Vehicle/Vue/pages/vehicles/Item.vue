@@ -58,7 +58,8 @@ const toggleItemMenu = (event) => {
 
                 <div class="p-inputgroup">
 
-                    <Button label="Edit"
+                    <Button v-if="!store.item.deleted_at"
+                        label="Edit"
                             class="p-button-sm"
                             @click="store.toEdit(store.item)"
                             data-testid="vehicles-item-to-edit"
