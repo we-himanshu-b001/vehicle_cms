@@ -65,6 +65,4 @@ function () {
     Route::any('/{id}/action/{action}', [VehiclesController::class, 'itemAction'])
         ->name('vh.backend.vehicle.api.vehicles.item.action');
 
-
-
 });

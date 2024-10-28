@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref, watch} from "vue";
+import {onMounted, ref, watch, computed} from "vue";
 import { useVehicleStore } from '../../stores/store-vehicles'
 
 import VhField from './../../vaahvue/vue-three/primeflex/VhField.vue'
@@ -20,6 +20,17 @@ onMounted(async () => {
     }
 
     await store.getFormMenu();
+
+    await store.getFuelType();
+    console.log(store);
+});
+const price = computed({
+    get() {
+        return Number(store.item.price);  // Cast to number when getting
+    },
+    set(value) {
+        store.item.price = value;
+    }
 });
 
 //--------form_menu
@@ -191,7 +202,7 @@ const toggleFormMenu = (event) => {
                     </div>
                 </VhField>
 
-                <VhField label="Mileage">
+                <VhField label="Mileage (km/h)">
                     <div class="p-inputgroup">
                         <InputNumber class="w-full" :min="1" :max="1000"
                                    placeholder="Enter the mileage between 1 and 1000"
@@ -208,43 +219,44 @@ const toggleFormMenu = (event) => {
                                    placeholder="Enter the price" locale="en-IN"
                                    name="vehicles-price"
                                    data-testid="vehicles-price"
-                                   v-model="store.item.price" required/>
+                                   v-model="price" required/>
                         <div class="required-field hidden"></div>
                     </div>
                 </VhField>
 
 
                 <VhField label="Country Origin">
-                    <Dropdown  v-model="store.item.country_id" :options="store.assets.country_list" optionLabel="name" optionValue="id" placeholder="Select a City" class="w-full md:w-14rem" />
+                    <Dropdown  v-model="store.item.country_id" :options="store.assets.country_list" optionLabel="name" optionValue="id" placeholder="Select a Country" class="w-full " />
                 </VhField>
 
 
                 <VhField label="Fuel Type">
 
-<!--                    <Dropdown v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" class="w-full md:w-14rem" />-->
-                    <select
-                            class="w-full p-inputtext"
-                            name="vehicles-fuel-type"
-                            data-testid="vehicles-fuel-type"
-                            v-model="store.item.fuel_type" required>
-                        <option disabled value="">Please select one</option>
-                        <option value="petrol">Petrol</option>
-                        <option value="diesel">Diesel</option>
-                        <option value="electric">Electric</option>
-                        <option value="hybrid">Hybrid</option>
-                    </select>
+                    <Dropdown v-model="store.item.fuel_type" :options="store.item.fuel_type_list" optionLabel="name" optionValue="value" placeholder="Select a type" class="w-full " />
+<!--                    <select-->
+<!--                            class="w-full p-inputtext"-->
+<!--                            name="vehicles-fuel-type"-->
+<!--                            data-testid="vehicles-fuel-type"-->
+<!--                            v-model="store.item.fuel_type" required>-->
+<!--                        <option disabled value="">Please select one</option>-->
+<!--                        <option value="petrol">Petrol</option>-->
+<!--                        <option value="diesel">Diesel</option>-->
+<!--                        <option value="electric">Electric</option>-->
+<!--                        <option value="hybrid">Hybrid</option>-->
+<!--                    </select>-->
                 </VhField>
 
                 <VhField label="Transmission">
-                    <select
-                        class="w-full p-inputtext"
-                        name="vehicles-transmission"
-                        data-testid="vehicles-transmission"
-                        v-model="store.item.transmission" required>
-                        <option disabled value="">Please select one</option>
-                        <option value="manual">Manual</option>
-                        <option value="automatic">Automatic</option>
-                    </select>
+                    <Dropdown v-model="store.item.transmission" :options="store.assets.transmission_list" optionLabel="name" optionValue="value" placeholder="Select a type" class="w-full " />
+                    <!--                    <select-->
+<!--                        class="w-full p-inputtext"-->
+<!--                        name="vehicles-transmission"-->
+<!--                        data-testid="vehicles-transmission"-->
+<!--                        v-model="store.item.transmission" required>-->
+<!--                        <option disabled value="">Please select one</option>-->
+<!--                        <option value="manual">Manual</option>-->
+<!--                        <option value="automatic">Automatic</option>-->
+<!--                    </select>-->
                 </VhField>
 
 

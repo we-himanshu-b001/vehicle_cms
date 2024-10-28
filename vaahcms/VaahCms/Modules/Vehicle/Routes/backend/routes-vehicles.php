@@ -5,11 +5,12 @@ use VaahCms\Modules\Vehicle\Http\Controllers\Backend\VehiclesController;
 Route::group(
     [
         'prefix' => 'backend/vehicle/vehicles',
-        
+
         'middleware' => ['web', 'has.backend.access'],
-        
+
 ],
 function () {
+    Route::get('/fueltype', [VehiclesController::class, 'getFuelType']);
     /**
      * Get Assets
      */
@@ -72,5 +73,7 @@ function () {
         ->name('vh.backend.vehicle.vehicles.item.action');
 
     //---------------------------------------------------------
+
+
 
 });

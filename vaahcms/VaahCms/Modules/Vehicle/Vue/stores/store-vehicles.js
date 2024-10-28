@@ -247,6 +247,7 @@ export const useVehicleStore = defineStore({
             }
             await this.getItemMenu();
             await this.getFormMenu();
+            await this.getFuelType();
         },
         //---------------------------------------------------------------------
         isListActionValid()
@@ -507,6 +508,25 @@ export const useVehicleStore = defineStore({
             }
         },
 
+        async getFuelType(){
+            let url = this.ajax_url+'/fueltype';
+
+            await vaah().ajax(
+                url,
+                this.getFuelTypeAfter,
+            );
+        },
+        getFuelTypeAfter: function(data, res){
+            // console.log(res.data);
+            if(res.data)
+            {
+                // console.log(res.data.fuel_type);
+                let self = this;
+                self.item['fuel_type_list'] = res.data.fuel_type;
+                // console.log(self.item);
+            }
+        },
+
         //---------------------------------------------------------------------
 
         //---------------------------------------------------------------------
@@ -680,21 +700,21 @@ export const useVehicleStore = defineStore({
         async getListSelectedMenu()
         {
             this.list_selected_menu = [
-                {
-                    label: 'Activate',
-                    command: async () => {
-                        await this.updateList('activate')
-                    }
-                },
-                {
-                    label: 'Deactivate',
-                    command: async () => {
-                        await this.updateList('deactivate')
-                    }
-                },
-                {
-                    separator: true
-                },
+                // {
+                //     label: 'Activate',
+                //     command: async () => {
+                //         await this.updateList('activate')
+                //     }
+                // },
+                // {
+                //     label: 'Deactivate',
+                //     command: async () => {
+                //         await this.updateList('deactivate')
+                //     }
+                // },
+                // {
+                //     separator: true
+                // },
                 {
                     label: 'Trash',
                     icon: 'pi pi-times',
@@ -723,21 +743,21 @@ export const useVehicleStore = defineStore({
         getListBulkMenu()
         {
             this.list_bulk_menu = [
-                {
-                    label: 'Mark all as active',
-                    command: async () => {
-                        await this.confirmAction('activate-all','Mark all as active');
-                    }
-                },
-                {
-                    label: 'Mark all as inactive',
-                    command: async () => {
-                        await this.confirmAction('deactivate-all','Mark all as inactive');
-                    }
-                },
-                {
-                    separator: true
-                },
+                // {
+                //     label: 'Mark all as active',
+                //     command: async () => {
+                //         await this.confirmAction('activate-all','Mark all as active');
+                //     }
+                // },
+                // {
+                //     label: 'Mark all as inactive',
+                //     command: async () => {
+                //         await this.confirmAction('deactivate-all','Mark all as inactive');
+                //     }
+                // },
+                // {
+                //     separator: true
+                // },
                 {
                     label: 'Trash All',
                     icon: 'pi pi-times',

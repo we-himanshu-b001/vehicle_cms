@@ -291,7 +291,7 @@ class Vehicle extends VaahModel
 
         $response['success'] = true;
         $response['data'] = $list;
-
+//        $response['fuel_type_list'] = ['petrol','diesel','electric','cng','hybrid'];
         return $response;
 
 
@@ -468,7 +468,7 @@ class Vehicle extends VaahModel
         }
         $response['success'] = true;
         $response['data'] = $item;
-
+//        $response['fuel_type_list'] = ['petrol','diesel','electric','cng','hybrid'];
         return $response;
 
     }
@@ -629,12 +629,13 @@ class Vehicle extends VaahModel
             'except' => self::getUnFillableColumns()
         ]);
         $fillable = VaahSeeder::fill($request);
+//        dd($fillable);
         if(!$fillable['success']){
             return $fillable;
         }
         $inputs = $fillable['data']['fill'];
 
-        $faker = Factory::create();
+//        $faker = Factory::create();
 
         /*
          * You can override the filled variables below this line.

@@ -39,6 +39,10 @@ class VehiclesController extends Controller
             $data['empty_item'] = Vehicle::getEmptyItem();
             $data['country_list'] = $this->taxo();
             $data['actions'] = [];
+            $data['transmission_list'] = [
+                ['name' => 'Automatic', 'value' => 'Automatic'],
+                ['name' => 'Manual', 'value' => 'Manual']
+            ];
 
             $response['success'] = true;
             $response['data'] = $data;
@@ -233,5 +237,14 @@ class VehiclesController extends Controller
     }
     //----------------------------------------------------------
 
-
+    public function getFuelType(){
+        $response['fuel_type'] = [
+            ['name' => 'Petrol', 'value' => 'petrol'],
+            ['name' => 'Diesel', 'value' => 'diesel'],
+            ['name' => 'Electric', 'value' => 'electric'],
+            ['name' => 'CNG', 'value' => 'cng'],
+            ['name' => 'Hybrid', 'value' => 'hybrid']
+        ];
+        return $response;
+    }
 }
