@@ -557,15 +557,20 @@ class Vehicle extends VaahModel
             case 'trash':
                 self::find($id)
                     ->delete();
+                $response['success'] = true;
+                $response['data'] = ['Deleted ID'=>$id];
+                $response['messages'][] = trans("vaahcms-general.record_has_been_deleted");
                 break;
             case 'restore':
                 self::where('id', $id)
                     ->onlyTrashed()
                     ->first()->restore();
+                $response['data'] = ['Restored ID'=>$id];
+                $response['message'][] = trans("vaahcms-general.record_has_been_restored");
                 break;
         }
-
-        return self::getItem($id);
+            return $response;
+//        return self::getItem($id);
     }
     //-------------------------------------------------
 
