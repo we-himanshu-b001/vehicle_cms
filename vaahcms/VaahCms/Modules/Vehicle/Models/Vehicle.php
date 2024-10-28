@@ -468,12 +468,12 @@ class Vehicle extends VaahModel
             ->withTrashed()
             ->first();
 
-        if($item->deleted_at){
-            $response['success'] = false;
-            $response['data'] = self::getList(new Request(['row'=>20]));
-            $response['errors'][] = 'Record can not be edited';
-            return $response;
-        }
+//        if($item->deleted_at){
+//            $response['success'] = false;
+//            $response['data'] = self::getList(new Request(['row'=>20]));
+//            $response['errors'][] = 'Record can not be edited';
+//            return $response;
+//        }
 
         if(!$item)
         {

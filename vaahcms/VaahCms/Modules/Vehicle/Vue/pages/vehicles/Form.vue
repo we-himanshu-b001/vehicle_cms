@@ -45,7 +45,7 @@ const toggleFormMenu = (event) => {
 
     <div class="col-6" >
 
-        <Panel class="is-small">
+        <Panel class="is-small" v-if="store.item && !store.item.deleted_at">
 
             <template class="p-1" #header>
 
@@ -261,6 +261,32 @@ const toggleFormMenu = (event) => {
 
 
             </div>
+        </Panel>
+        <Panel v-else>
+            <Message severity="error"
+                     class="p-container-message mb-3"
+                     :closable="false"
+                     icon="pi pi-trash"
+                     v-if="store.item.deleted_at">
+
+                <div class="flex align-items-center justify-content-between">
+
+                    <div class="">
+                        Deleted at {{store.item.deleted_at}}
+                    </div>
+
+                    <div class="ml-3">
+                        Restore the record to edit 
+                        <Button label="Restore"
+                                class="p-button-sm"
+                                data-testid="articles-item-restore"
+                                @click="store.itemAction('restore')">
+                        </Button>
+                    </div>
+
+                </div>
+
+            </Message>
         </Panel>
 
     </div>
