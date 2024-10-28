@@ -282,6 +282,7 @@ class Vehicle extends VaahModel
     //-------------------------------------------------
     public static function getList($request)
     {
+//        dd($request);
         $list = self::getSorted($request->filter);
 //        $list->isActiveFilter($request->filter);
         $list->trashedFilter($request->filter);
@@ -466,6 +467,13 @@ class Vehicle extends VaahModel
             ->with(['country','createdByUser', 'updatedByUser', 'deletedByUser'])
             ->withTrashed()
             ->first();
+
+        if($item->deleted_at){
+            $response['success'] = false;
+            $response['data'] = self::getList(new Request(['row'=>20]));
+            $response['errors'][] = 'Record can not be edited';
+            return $response;
+        }
 
         if(!$item)
         {
