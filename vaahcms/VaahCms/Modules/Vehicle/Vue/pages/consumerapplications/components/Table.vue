@@ -36,7 +36,12 @@ const useVaah = vaah();
                     <Badge v-if="prop.data.deleted_at"
                            value="Trashed"
                            severity="danger"></Badge>
-                    {{prop.data.customer.name}}
+                    <span v-if="prop.data.customer">
+                         {{prop.data.customer.name}}
+                     </span>
+                    <span v-else>
+                         -
+                     </span>
                 </template>
 
             </Column>
@@ -46,7 +51,12 @@ const useVaah = vaah();
                      :sortable="true">
 
                  <template #body="prop">
-                     {{prop.data.vehicle.name}}
+                     <span v-if="prop.data.vehicle">
+                         {{prop.data.vehicle.name}}
+                     </span>
+                     <span v-else>
+                         -
+                     </span>
                  </template>
 
              </Column>
