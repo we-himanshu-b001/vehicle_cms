@@ -83,12 +83,24 @@ class ConsumerApplication extends VaahModel
             $empty_item[$column] = null;
         }
 
-        $empty_item['is_active'] = 1;
+        $empty_item['loan_applied'] = null;
 
         return $empty_item;
     }
 
     //-------------------------------------------------
+
+    public function customer(){
+        return $this->belongsTo(Customer::class,
+        'customer_id','id'
+        );
+    }
+
+    public function vehicle(){
+        return $this->belongsTo(Vehicle::class,
+            'vehicle_id','id'
+        );
+    }
 
     public function createdByUser()
     {
@@ -277,6 +289,7 @@ class ConsumerApplication extends VaahModel
 //        $list->isActiveFilter($request->filter);
         $list->trashedFilter($request->filter);
         $list->searchFilter($request->filter);
+        $list->with(['customer','vehicle']);
 
         $rows = config('vaahcms.per_page');
 

@@ -1,13 +1,15 @@
 <script setup>
 import {onMounted, ref, watch} from "vue";
 import { useConsumerApplicationStore } from '../../stores/store-consumerapplications'
+import { useVehicleStore } from "../../stores/store-vehicles";
 
 import VhField from './../../vaahvue/vue-three/primeflex/VhField.vue'
 import {useRoute} from 'vue-router';
 
-
+const vstore = useVehicleStore();
 const store = useConsumerApplicationStore();
 const route = useRoute();
+const vid = ref('');
 
 onMounted(async () => {
     /**
@@ -21,6 +23,16 @@ onMounted(async () => {
 
     await store.getFormMenu();
 });
+
+// watch(
+//     () => store.item?.vehicle_id,
+//     async (newVal) => {
+//         if (newVal) {
+//             console.log(newVal);
+//             await vstore.getItem(newVal);// Calls getItem with the updated vehicle_id
+//         }
+//     }
+// );
 
 //--------form_menu
 const form_menu = ref();
@@ -103,8 +115,6 @@ const toggleFormMenu = (event) => {
                     </Button>
                 </div>
 
-
-
             </template>
 
 
@@ -140,7 +150,19 @@ const toggleFormMenu = (event) => {
                 </VhField>
 
                 <VhField label="Vehicle Name">
-                    <Dropdown v-model="store.item.vehicle_id" :options="store.assets.vehicle_list" optionLabel="name" optionValue="id" placeholder="Select a vehicle" class="w-full " filter/>
+                    <Dropdown v-model="store.item.vehicle_id" @change="vstore.getItem(store.item.vehicle_id)" :options="store.assets.vehicle_list" optionLabel="name" optionValue="id" placeholder="Select a vehicle" class="w-full " filter/>
+                </VhField>
+
+
+                <VhField v-if="vstore.item && store.item.vehicle_id">
+                    <DataTable :value="[vstore.item]" class="w-full">
+                        <Column field="model" header="Model" />
+                        <Column field="mileage" header="Mileage(km/h)" />
+                        <Column field="company" header="Company" />
+                        <Column field="fuel_type" header="Fuel Type" />
+                        <Column field="transmission" header="Transmission" />
+                        <Column field="price" header="Price(₹)" />
+                    </DataTable>
                 </VhField>
 
                 <VhField label="Description">

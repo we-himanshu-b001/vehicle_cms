@@ -28,7 +28,7 @@ const useVaah = vaah();
             <Column field="id" header="ID" :style="{width: '80px'}" :sortable="true">
             </Column>
 
-            <Column field="name" header="Name"
+            <Column field="customer_name" header="Customer Name"
                     class="overflow-wrap-anywhere"
                     :sortable="true">
 
@@ -36,22 +36,47 @@ const useVaah = vaah();
                     <Badge v-if="prop.data.deleted_at"
                            value="Trashed"
                            severity="danger"></Badge>
-                    {{prop.data.name}}
+                    {{prop.data.customer.name}}
                 </template>
 
             </Column>
 
+             <Column field="vehicle_name" header="Vehicle Name"
+                     class="overflow-wrap-anywhere"
+                     :sortable="true">
 
-                <Column field="updated_at" header="Updated"
-                        v-if="store.isViewLarge()"
-                        style="width:150px;"
-                        :sortable="true">
+                 <template #body="prop">
+                     {{prop.data.vehicle.name}}
+                 </template>
 
-                    <template #body="prop">
-                        {{useVaah.toLocalTimeShortFormat(prop.data.updated_at)}}
-                    </template>
+             </Column>
 
-                </Column>
+             <Column field="application_status" header="Application Status"
+                     class="overflow-wrap-anywhere"
+                     :sortable="true">
+
+                 <template #body="prop">
+                     <Badge v-if="prop.data.status === 'rejected'" severity="danger">{{prop.data.status.toUpperCase()}}
+                     </Badge>
+                     <Badge v-else-if="prop.data.status === 'approved'" severity="success">{{prop.data.status.toUpperCase()}}
+                     </Badge>
+                     <Badge v-else>{{prop.data.status.toUpperCase()}}
+                     </Badge>
+                 </template>
+
+             </Column>
+
+
+            <Column field="updated_at" header="Updated"
+                    v-if="store.isViewLarge()"
+                    style="width:150px;"
+                    :sortable="true">
+
+                <template #body="prop">
+                    {{useVaah.toLocalTimeShortFormat(prop.data.updated_at)}}
+                </template>
+
+            </Column>
 
             <Column field="loan_applied" v-if="store.isViewLarge()"
                     :sortable="true"
@@ -68,6 +93,17 @@ const useVaah = vaah();
                 </template>
 
             </Column>
+
+             <Column field="pending_amount" header="Pending Amount"
+                     v-if="store.isViewLarge()"
+                     style="width:150px;"
+                     :sortable="true">
+
+                 <template #body="prop">
+                     ₹{{prop.data.pending_amount}}
+                 </template>
+
+             </Column>
 
             <Column field="actions" style="width:150px;"
                     :style="{width: store.getActionWidth() }"

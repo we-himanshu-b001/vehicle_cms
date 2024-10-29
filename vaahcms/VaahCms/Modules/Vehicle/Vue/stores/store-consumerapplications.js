@@ -170,7 +170,7 @@ export const useConsumerApplicationStore = defineStore({
               if(name && name !== "")
               {
                   this.item.name = vaah().capitalising(name);
-                  this.item.slug = vaah().strToSlug(name);
+                  // this.item.slug = vaah().strToSlug(name);
               }else{
                   this.item.slug = name;
               }
