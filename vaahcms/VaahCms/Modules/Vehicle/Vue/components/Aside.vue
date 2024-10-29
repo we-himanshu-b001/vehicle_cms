@@ -34,9 +34,19 @@ const items = ref([
                 route: "/vehicles"
             },
             {
+                label: 'Customers',
+                icon: 'fa-regular fa-chart-bar',
+                route: "/customers"
+            },
+            {
                 label: 'Taxonomies',
                 icon: 'fa-regular fa-chart-bar',
                 route: "/taxonomies"
+            },
+            {
+                label: 'Consumer Applications',
+                icon: 'fa-regular fa-chart-bar',
+                route: "/consumerapplications"
             },
         ]
     },

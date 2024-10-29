@@ -276,7 +276,7 @@ const toggleFormMenu = (event) => {
                     </div>
 
                     <div class="ml-3">
-                        Restore the record to edit 
+                        Restore the record to edit
                         <Button label="Restore"
                                 class="p-button-sm"
                                 data-testid="articles-item-restore"

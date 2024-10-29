@@ -33,4 +33,6 @@ Route::group(
  */
 include("backend/routes-vehicles.php");
 include("backend/routes-taxonomies.php");
+include("backend/routes-customers.php");
+include("backend/routes-consumerapplications.php");
 
