@@ -31,7 +31,7 @@ class CustomersController extends Controller
             $data['fillable']['columns'] = Customer::getFillableColumns();
             $data['fillable']['except'] = Customer::getUnFillableColumns();
             $data['empty_item'] = Customer::getEmptyItem();
-            $data['genders'] = Taxonomy::getTaxonomyByType('Gender');
+            $data['genders'] = Taxonomy::getTaxonomyByType('gender');
 
             $data['actions'] = [];
 

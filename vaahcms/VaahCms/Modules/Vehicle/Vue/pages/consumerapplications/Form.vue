@@ -135,36 +135,55 @@ const toggleFormMenu = (event) => {
                 </Message>
 
 
-                <VhField label="Name">
+                <VhField label="Customer Name">
+                    <Dropdown v-model="store.item.customer_id" :options="store.assets.customer_list" optionLabel="name" optionValue="id" placeholder="Select a customer" class="w-full " filter/>
+                </VhField>
+
+                <VhField label="Vehicle Name">
+                    <Dropdown v-model="store.item.vehicle_id" :options="store.assets.vehicle_list" optionLabel="name" optionValue="id" placeholder="Select a vehicle" class="w-full " filter/>
+                </VhField>
+
+                <VhField label="Description">
                     <div class="p-inputgroup">
                         <InputText class="w-full"
-                                   placeholder="Enter the name"
-                                   name="consumerapplications-name"
-                                   data-testid="consumerapplications-name"
-                                   @update:modelValue="store.watchItem"
-                                   v-model="store.item.name" required/>
-                        <div class="required-field hidden"></div>
+                                     placeholder="Enter the description/note"
+                                     name="customers-description"
+                                     data-testid="customers-description"
+                                     v-model="store.item.description"/>
                     </div>
                 </VhField>
 
-                <VhField label="Slug">
-                    <div class="p-inputgroup">
-                        <InputText class="w-full"
-                                   placeholder="Enter the slug"
-                                   name="consumerapplications-slug"
-                                   data-testid="consumerapplications-slug"
-                                   v-model="store.item.slug" required/>
-                        <div class="required-field hidden"></div>
-                    </div>
-                </VhField>
-
-                <VhField label="Is Active">
+                <VhField label="Loan Applied">
                     <InputSwitch v-bind:false-value="0"
                                  v-bind:true-value="1"
-                                 class="p-inputswitch-sm"
-                                 name="consumerapplications-active"
-                                 data-testid="consumerapplications-active"
-                                 v-model="store.item.is_active"/>
+                                 name="customers-loan-applied"
+                                 data-testid="customers-loan-applied"
+                                 v-model="store.item.loan_applied"/>
+                </VhField>
+
+                <VhField label="Advance Amount">
+                    <div class="p-inputgroup">
+                        <InputNumber class="w-full"
+                                     placeholder="Enter the advance amount(if any)"
+                                     name="customers-advance-amount"
+                                     data-testid="customers-advance-amount"
+                                     v-model="store.item.advance_amount"/>
+                    </div>
+                </VhField>
+
+                <VhField label="Pending Amount">
+                    <div class="p-inputgroup">
+                        <InputNumber class="w-full"
+                                     placeholder="Enter the pending amount"
+                                     name="customers-pending-amount"
+                                     data-testid="customers-pending-amount"
+                                     v-model="store.item.pending_amount" required/>
+                        <div class="required-field hidden"></div>
+                    </div>
+                </VhField>
+
+                <VhField label="Status">
+                    <Dropdown v-model="store.item.status" :options="store.assets.application_status_list" optionLabel="name" optionValue="slug" placeholder="Select a status" class="w-full "/>
                 </VhField>
 
             </div>

@@ -26,13 +26,13 @@ class ConsumerApplication extends VaahModel
     ];
     //-------------------------------------------------
     protected $fillable = [
-        'uuid',
-        'name',
-        'slug',
-        'is_active',
-        'created_by',
-        'updated_by',
-        'deleted_by',
+        'customer_id',
+        'vehicle_id',
+        'description',
+        'advance_amount',
+        'pending_amount',
+        'loan_applied',
+        'status'
     ];
     //-------------------------------------------------
     protected $fill_except = [
@@ -55,6 +55,7 @@ class ConsumerApplication extends VaahModel
     {
         return [
             'uuid',
+            'is_active',
             'created_by',
             'updated_by',
             'deleted_by',
@@ -157,24 +158,24 @@ class ConsumerApplication extends VaahModel
 
 
         // check if name exist
-        $item = self::where('name', $inputs['name'])->withTrashed()->first();
-
-        if ($item) {
-            $error_message = "This name is already exist".($item->deleted_at?' in trash.':'.');
-            $response['success'] = false;
-            $response['messages'][] = $error_message;
-            return $response;
-        }
+//        $item = self::where('name', $inputs['name'])->withTrashed()->first();
+//
+//        if ($item) {
+//            $error_message = "This name is already exist".($item->deleted_at?' in trash.':'.');
+//            $response['success'] = false;
+//            $response['messages'][] = $error_message;
+//            return $response;
+//        }
 
         // check if slug exist
-        $item = self::where('slug', $inputs['slug'])->withTrashed()->first();
-
-        if ($item) {
-            $error_message = "This slug is already exist".($item->deleted_at?' in trash.':'.');
-            $response['success'] = false;
-            $response['messages'][] = $error_message;
-            return $response;
-        }
+//        $item = self::where('slug', $inputs['slug'])->withTrashed()->first();
+//
+//        if ($item) {
+//            $error_message = "This slug is already exist".($item->deleted_at?' in trash.':'.');
+//            $response['success'] = false;
+//            $response['messages'][] = $error_message;
+//            return $response;
+//        }
 
         $item = new self();
         $item->fill($inputs);
@@ -263,7 +264,7 @@ class ConsumerApplication extends VaahModel
         foreach ($search_array as $search_item){
             $query->where(function ($q1) use ($search_item) {
                 $q1->where('name', 'LIKE', '%' . $search_item . '%')
-                    ->orWhere('slug', 'LIKE', '%' . $search_item . '%')
+//                    ->orWhere('slug', 'LIKE', '%' . $search_item . '%')
                     ->orWhere('id', 'LIKE', $search_item . '%');
             });
         }
@@ -273,7 +274,7 @@ class ConsumerApplication extends VaahModel
     public static function getList($request)
     {
         $list = self::getSorted($request->filter);
-        $list->isActiveFilter($request->filter);
+//        $list->isActiveFilter($request->filter);
         $list->trashedFilter($request->filter);
         $list->searchFilter($request->filter);
 
@@ -480,28 +481,28 @@ class ConsumerApplication extends VaahModel
         }
 
         // check if name exist
-        $item = self::where('id', '!=', $id)
-            ->withTrashed()
-            ->where('name', $inputs['name'])->first();
-
-         if ($item) {
-             $error_message = "This name is already exist".($item->deleted_at?' in trash.':'.');
-             $response['success'] = false;
-             $response['errors'][] = $error_message;
-             return $response;
-         }
+//        $item = self::where('id', '!=', $id)
+//            ->withTrashed()
+//            ->where('name', $inputs['name'])->first();
+//
+//         if ($item) {
+//             $error_message = "This name is already exist".($item->deleted_at?' in trash.':'.');
+//             $response['success'] = false;
+//             $response['errors'][] = $error_message;
+//             return $response;
+//         }
 
          // check if slug exist
-         $item = self::where('id', '!=', $id)
-             ->withTrashed()
-             ->where('slug', $inputs['slug'])->first();
-
-         if ($item) {
-             $error_message = "This slug is already exist".($item->deleted_at?' in trash.':'.');
-             $response['success'] = false;
-             $response['errors'][] = $error_message;
-             return $response;
-         }
+//         $item = self::where('id', '!=', $id)
+//             ->withTrashed()
+//             ->where('slug', $inputs['slug'])->first();
+//
+//         if ($item) {
+//             $error_message = "This slug is already exist".($item->deleted_at?' in trash.':'.');
+//             $response['success'] = false;
+//             $response['errors'][] = $error_message;
+//             return $response;
+//         }
 
         $item = self::where('id', $id)->withTrashed()->first();
         $item->fill($inputs);
@@ -537,12 +538,12 @@ class ConsumerApplication extends VaahModel
             case 'activate':
                 self::where('id', $id)
                     ->withTrashed()
-                    ->update(['is_active' => 1]);
+                    ->update(['loan_applied' => 1]);
                 break;
             case 'deactivate':
                 self::where('id', $id)
                     ->withTrashed()
-                    ->update(['is_active' => null]);
+                    ->update(['loan_applied' => null]);
                 break;
             case 'trash':
                 self::find($id)
@@ -563,8 +564,13 @@ class ConsumerApplication extends VaahModel
     {
 
         $rules = array(
-            'name' => 'required|max:150',
-            'slug' => 'required|max:150',
+            'customer_id' => 'required|numeric',
+            'vehicle_id' => 'required|numeric',
+            'description' => 'required|string',
+            'loan_applied' => 'required|in:0,1',
+            'advance_amount' => 'sometimes|numeric',
+            'pending_amount' => 'sometimes|numeric',
+            'status' => 'required'
         );
 
         $validator = \Validator::make($inputs, $rules);

@@ -53,14 +53,14 @@ const useVaah = vaah();
 
                 </Column>
 
-            <Column field="is_active" v-if="store.isViewLarge()"
+            <Column field="loan_applied" v-if="store.isViewLarge()"
                     :sortable="true"
                     style="width:100px;"
-                    header="Is Active">
+                    header="Loan Applied">
 
                 <template #body="prop">
-                    <InputSwitch v-model.bool="prop.data.is_active"
-                                 data-testid="consumerapplications-table-is-active"
+                    <InputSwitch v-model.bool="prop.data.loan_applied"
+                                 data-testid="consumerapplications-table-loan-applied"
                                  v-bind:false-value="0"  v-bind:true-value="1"
                                  class="p-inputswitch-sm"
                                  @input="store.toggleIsActive(prop.data)">

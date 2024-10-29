@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use VaahCms\Modules\Vehicle\Models\ConsumerApplication;
+use VaahCms\Modules\Vehicle\Models\Customer;
+use VaahCms\Modules\Vehicle\Models\Vehicle;
+use WebReinvent\VaahCms\Models\Taxonomy;
 
 
 class ConsumerApplicationsController extends Controller
@@ -30,6 +33,9 @@ class ConsumerApplicationsController extends Controller
             $data['fillable']['columns'] = ConsumerApplication::getFillableColumns();
             $data['fillable']['except'] = ConsumerApplication::getUnFillableColumns();
             $data['empty_item'] = ConsumerApplication::getEmptyItem();
+            $data['customer_list'] = Customer::get(['id','name']);
+            $data['vehicle_list'] = Vehicle::get(['id','name']);
+            $data['application_status_list'] = Taxonomy::getTaxonomyByType('application-status');
 
             $data['actions'] = [];
 

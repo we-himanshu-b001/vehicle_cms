@@ -461,7 +461,7 @@ export const useConsumerApplicationStore = defineStore({
         //---------------------------------------------------------------------
         async toggleIsActive(item)
         {
-            if(item.is_active)
+            if(item.loan_applied)
             {
                 await this.itemAction('activate', item);
             } else{
