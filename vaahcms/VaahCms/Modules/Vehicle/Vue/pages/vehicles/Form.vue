@@ -58,18 +58,18 @@ async function addCountry() {
    // console.log(res);
 
     while (!tstore.taxonomy_id) {
-        await new Promise(resolve => setTimeout(resolve, 50)); // Delay to avoid busy waiting
+        await new Promise(resolve => setTimeout(resolve, 50)); 
     }
 
    if(tstore && tstore.taxonomy_id){
 
-       console.log('>>>>>>>>>', tstore.taxonomy_id);
+       // console.log('>>>>>>>>>', tstore.taxonomy_id);
        // console.log(name.value, slug.value, is_active.value)
        if (name.value && slug.value && is_active.value !== null) {
            const newCountry = {
                id: tstore.taxonomy_id,
                name: name.value,
-               vh_taxonomy_type_id: parent_id.value, // Set a default or unique `vh_taxonomy_type_id`
+               vh_taxonomy_type_id: parent_id.value,
            };
            store.assets.country_list.push(newCountry);
 
@@ -267,24 +267,14 @@ async function addCountry() {
 
 
                 <VhField label="Country Origin">
-{{store.item.country_id}}
+
                     <Dropdown  v-model="store.item.country_id" :options="store.assets.country_list" filter optionLabel="name" optionValue="id" placeholder="Select a Country" class="w-full " />
 
                     <Button label="Add" @click="visible = true" />
 
                     <Dialog v-model:visible="visible" modal header="Add Country" :style="{ width: '25rem' }">
 
-<!--                        <InputText class="p-inputtext-sm"-->
-<!--                                   name="child-taxonomies-type-slug"-->
-<!--                                   data-testid="child-taxonomies-type-slug"-->
-<!--                                   v-model="newValue"-->
-<!--                        />-->
-
                         <VhField label="Parent" class="hidden">
-<!--                            <Dropdown v-model="parent_id"-->
-<!--                                      placeholder="Select a Parent"-->
-<!--                                      class="p-inputtext-sm w-full"-->
-<!--                            />-->
                             <InputText class="w-full"
                                        name="taxonomies-name"
                                        data-testid="taxonomies-name"

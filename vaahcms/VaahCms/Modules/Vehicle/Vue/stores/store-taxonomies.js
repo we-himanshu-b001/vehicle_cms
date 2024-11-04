@@ -390,7 +390,7 @@ export const useTaxonomyStore = defineStore({
             let options = {
                 method: 'post',
             };
-console.log(type);
+// console.log(type);
 // return;
             /**
              * Learn more about http request methods at
