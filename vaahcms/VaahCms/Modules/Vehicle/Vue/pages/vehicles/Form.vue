@@ -4,10 +4,19 @@ import { useVehicleStore } from '../../stores/store-vehicles'
 
 import VhField from './../../vaahvue/vue-three/primeflex/VhField.vue'
 import {useRoute} from 'vue-router';
+// import {useDialog} from "primevue/usedialog";
+import Dialog from 'primevue/dialog';
+import {useTaxonomyStore} from "../../stores/store-taxonomies";
 
-
+const tstore = useTaxonomyStore();
 const store = useVehicleStore();
 const route = useRoute();
+const visible = ref(false);
+const newValue = ref('');
+const parent_id = ref('');
+const name = ref('');
+const slug = ref('');
+const is_active = ref(null);
 
 onMounted(async () => {
     /**
@@ -20,6 +29,10 @@ onMounted(async () => {
     }
 
     await store.getFormMenu();
+
+    if (store.assets.country_list && store.assets.country_list.length > 0) {
+        parent_id.value = store.assets.country_list[0].vh_taxonomy_type_id;
+    }
 
     // await store.getFuelType();
     // console.log(store);
@@ -39,6 +52,34 @@ const toggleFormMenu = (event) => {
     form_menu.value.toggle(event);
 };
 //--------/form_menu
+
+async function addCountry() {
+    await tstore.itemAction('create-and-new',{'name':name.value,'slug':slug.value,'vh_taxonomy_type_id':parent_id.value,'is_active':is_active.value});
+   // console.log(res);
+
+    while (!tstore.taxonomy_id) {
+        await new Promise(resolve => setTimeout(resolve, 50)); // Delay to avoid busy waiting
+    }
+
+   if(tstore && tstore.taxonomy_id){
+
+       console.log('>>>>>>>>>', tstore.taxonomy_id);
+       // console.log(name.value, slug.value, is_active.value)
+       if (name.value && slug.value && is_active.value !== null) {
+           const newCountry = {
+               id: tstore.taxonomy_id,
+               name: name.value,
+               vh_taxonomy_type_id: parent_id.value, // Set a default or unique `vh_taxonomy_type_id`
+           };
+           store.assets.country_list.push(newCountry);
+
+           visible.value = false;
+           name.value = '';
+           slug.value = '';
+           is_active.value = null;
+       }
+   }
+}
 
 </script>
 <template>
@@ -226,13 +267,67 @@ const toggleFormMenu = (event) => {
 
 
                 <VhField label="Country Origin">
-                    <Dropdown  v-model="store.item.country_id" :options="store.assets.country_list" optionLabel="name" optionValue="id" placeholder="Select a Country" class="w-full " />
+{{store.item.country_id}}
+                    <Dropdown  v-model="store.item.country_id" :options="store.assets.country_list" filter optionLabel="name" optionValue="id" placeholder="Select a Country" class="w-full " />
+
+                    <Button label="Add" @click="visible = true" />
+
+                    <Dialog v-model:visible="visible" modal header="Add Country" :style="{ width: '25rem' }">
+
+<!--                        <InputText class="p-inputtext-sm"-->
+<!--                                   name="child-taxonomies-type-slug"-->
+<!--                                   data-testid="child-taxonomies-type-slug"-->
+<!--                                   v-model="newValue"-->
+<!--                        />-->
+
+                        <VhField label="Parent" class="hidden">
+<!--                            <Dropdown v-model="parent_id"-->
+<!--                                      placeholder="Select a Parent"-->
+<!--                                      class="p-inputtext-sm w-full"-->
+<!--                            />-->
+                            <InputText class="w-full"
+                                       name="taxonomies-name"
+                                       data-testid="taxonomies-name"
+                                       v-model="parent_id" disabled
+                            />
+                        </VhField>
+
+                        <VhField label="Name">
+                            <InputText class="w-full"
+                                       name="taxonomies-name"
+                                       data-testid="taxonomies-name"
+                                       v-model="name"
+                            />
+                        </VhField>
+
+                        <VhField label="Slug">
+                            <InputText class="w-full"
+                                       name="taxonomies-slug"
+                                       data-testid="taxonomies-slug"
+                                       v-model="slug"
+                            />
+                        </VhField>
+
+                        <VhField label="Is Active">
+                            <InputSwitch v-bind:false-value="0"
+                                         v-bind:true-value="1"
+                                         name="taxonomies-is_active"
+                                         data-testid="taxonomies-is_active"
+                                         v-model="is_active"/>
+                        </VhField>
+
+                        <Button class="p-button-sm"
+                                label="Add"
+                                @click="addCountry"
+                        />
+                    </Dialog>
+
                 </VhField>
 
 
                 <VhField label="Fuel Type">
 
-                    <Dropdown v-model="store.item.fuel_type" :options="store.assets.fuel_type_list" optionLabel="name" optionValue="value" placeholder="Select a type" class="w-full " />
+                    <Dropdown v-model="store.item.fuel_type" :options="store.assets.fuel_type_list" optionLabel="name" optionValue="value" placeholder="Select a type" class="w-full " filter/>
 <!--                    <select-->
 <!--                            class="w-full p-inputtext"-->
 <!--                            name="vehicles-fuel-type"-->

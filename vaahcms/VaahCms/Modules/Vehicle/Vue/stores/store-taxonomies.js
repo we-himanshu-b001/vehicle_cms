@@ -81,6 +81,7 @@ export const useTaxonomyStore = defineStore({
         },
         first_element: null,
         selected_parent_id: null,
+        taxonomy_id: null,
         is_loading: false,
     }),
     getters: {
@@ -389,13 +390,15 @@ export const useTaxonomyStore = defineStore({
             let options = {
                 method: 'post',
             };
-
+console.log(type);
+// return;
             /**
              * Learn more about http request methods at
              * https://www.youtube.com/watch?v=tkfVQK6UxDI
              */
             switch (type)
             {
+
                 /**
                  * Create a record, hence method is `POST`
                  * https://docs.vaah.dev/guide/laravel.html#create-one-or-many-records
@@ -451,6 +454,8 @@ export const useTaxonomyStore = defineStore({
             {
                 this.item = data;
                 this.selected_parent_id = null;
+
+                this.taxonomy_id = data ? data.id : null;
                 await this.getList();
                 await this.formActionAfter();
                 this.getItemMenu();
