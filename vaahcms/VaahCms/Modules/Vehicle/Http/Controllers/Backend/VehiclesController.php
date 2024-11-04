@@ -17,8 +17,8 @@ class VehiclesController extends Controller
     }
 
     //----------------------------------------------------------
-    public function taxo(){
-        $taxonomy_type_slug = 'countries';
+    public function taxo($taxonomy_type_slug){
+//        $taxonomy_type_slug = 'countries';
         $active_taxonomies = Taxonomy::getTaxonomyByType($taxonomy_type_slug);
         return $active_taxonomies;
     }
@@ -37,19 +37,22 @@ class VehiclesController extends Controller
             $data['fillable']['columns'] = Vehicle::getFillableColumns();
             $data['fillable']['except'] = Vehicle::getUnFillableColumns();
             $data['empty_item'] = Vehicle::getEmptyItem();
-            $data['country_list'] = $this->taxo();
+            $data['country_list'] = $this->taxo('countries');
+            $data['fuel_type_list'] = $this->taxo('fuel-type');
+            $data['transmission_list'] = $this->taxo('transmission');
+
             $data['actions'] = [];
-            $data['transmission_list'] = [
-                ['name' => 'Automatic', 'value' => 'Automatic'],
-                ['name' => 'Manual', 'value' => 'Manual']
-            ];
-            $data['fuel_type_list'] = [
-                ['name' => 'Petrol', 'value' => 'petrol'],
-                ['name' => 'Diesel', 'value' => 'diesel'],
-                ['name' => 'Electric', 'value' => 'electric'],
-                ['name' => 'CNG', 'value' => 'cng'],
-                ['name' => 'Hybrid', 'value' => 'hybrid']
-            ];
+//            $data['transmission_list'] = [
+//                ['name' => 'Automatic', 'value' => 'Automatic'],
+//                ['name' => 'Manual', 'value' => 'Manual']
+//            ];
+//            $data['fuel_type_list'] = [
+//                ['name' => 'Petrol', 'value' => 'petrol'],
+//                ['name' => 'Diesel', 'value' => 'diesel'],
+//                ['name' => 'Electric', 'value' => 'electric'],
+//                ['name' => 'CNG', 'value' => 'cng'],
+//                ['name' => 'Hybrid', 'value' => 'hybrid']
+//            ];
 
             $response['success'] = true;
             $response['data'] = $data;

@@ -327,7 +327,7 @@ async function addCountry() {
 
                 <VhField label="Fuel Type">
 
-                    <Dropdown v-model="store.item.fuel_type" :options="store.assets.fuel_type_list" optionLabel="name" optionValue="value" placeholder="Select a type" class="w-full " filter/>
+                    <Dropdown v-model="store.item.fuel_type" :options="store.assets.fuel_type_list" optionLabel="name" optionValue="id" placeholder="Select a type" class="w-full " filter/>
 <!--                    <select-->
 <!--                            class="w-full p-inputtext"-->
 <!--                            name="vehicles-fuel-type"-->
