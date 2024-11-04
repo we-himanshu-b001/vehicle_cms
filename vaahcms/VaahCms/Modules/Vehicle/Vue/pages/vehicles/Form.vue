@@ -58,7 +58,7 @@ async function addCountry() {
    // console.log(res);
 
     while (!tstore.taxonomy_id) {
-        await new Promise(resolve => setTimeout(resolve, 50)); 
+        await new Promise(resolve => setTimeout(resolve, 50));
     }
 
    if(tstore && tstore.taxonomy_id){
