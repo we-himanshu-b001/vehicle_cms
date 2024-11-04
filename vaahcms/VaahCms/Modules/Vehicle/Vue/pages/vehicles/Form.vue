@@ -12,8 +12,10 @@ const tstore = useTaxonomyStore();
 const store = useVehicleStore();
 const route = useRoute();
 const visible = ref(false);
+const visible2 = ref(false);
 const newValue = ref('');
 const parent_id = ref('');
+const parent_id2 = ref('');
 const name = ref('');
 const slug = ref('');
 const is_active = ref(null);
@@ -32,6 +34,10 @@ onMounted(async () => {
 
     if (store.assets.country_list && store.assets.country_list.length > 0) {
         parent_id.value = store.assets.country_list[0].vh_taxonomy_type_id;
+    }
+
+    if (store.assets.fuel_type_list && store.assets.fuel_type_list.length > 0) {
+        parent_id2.value = store.assets.fuel_type_list[0].vh_taxonomy_type_id;
     }
 
     // await store.getFuelType();
@@ -81,6 +87,33 @@ async function addCountry() {
    }
 }
 
+async function addfuel() {
+    await tstore.itemAction('create-and-new',{'name':name.value,'slug':slug.value,'vh_taxonomy_type_id':parent_id2.value,'is_active':is_active.value});
+    // console.log(res);
+
+    while (!tstore.taxonomy_id) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+    }
+
+    if(tstore && tstore.taxonomy_id){
+
+        // console.log('>>>>>>>>>', tstore.taxonomy_id);
+        // console.log(name.value, slug.value, is_active.value)
+        if (name.value && slug.value && is_active.value !== null) {
+            const newCountry = {
+                id: tstore.taxonomy_id,
+                name: name.value,
+                vh_taxonomy_type_id: parent_id2.value,
+            };
+            store.assets.fuel_type_list.push(newCountry);
+
+            visible2.value = false;
+            name.value = '';
+            slug.value = '';
+            is_active.value = null;
+        }
+    }
+}
 </script>
 <template>
 
@@ -329,6 +362,49 @@ async function addCountry() {
 <!--                        <option value="electric">Electric</option>-->
 <!--                        <option value="hybrid">Hybrid</option>-->
 <!--                    </select>-->
+
+                    <Button label="Add" @click="visible2 = true" />
+
+                    <Dialog v-model:visible="visible2" modal header="Add Fuel Type" :style="{ width: '25rem' }">
+
+                        <VhField label="Parent" class="hidden">
+                            <InputText class="w-full"
+                                       name="taxonomies-name"
+                                       data-testid="taxonomies-name"
+                                       v-model="parent_id" disabled
+                            />
+                        </VhField>
+
+                        <VhField label="Name">
+                            <InputText class="w-full"
+                                       name="taxonomies-name"
+                                       data-testid="taxonomies-name"
+                                       v-model="name"
+                            />
+                        </VhField>
+
+                        <VhField label="Slug">
+                            <InputText class="w-full"
+                                       name="taxonomies-slug"
+                                       data-testid="taxonomies-slug"
+                                       v-model="slug"
+                            />
+                        </VhField>
+
+                        <VhField label="Is Active">
+                            <InputSwitch v-bind:false-value="0"
+                                         v-bind:true-value="1"
+                                         name="taxonomies-is_active"
+                                         data-testid="taxonomies-is_active"
+                                         v-model="is_active"/>
+                        </VhField>
+
+                        <Button class="p-button-sm"
+                                label="Add"
+                                @click="addfuel"
+                        />
+                    </Dialog>
+
                 </VhField>
 
                 <VhField label="Transmission">
