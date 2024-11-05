@@ -39,6 +39,7 @@ export const useVehicleStore = defineStore({
         list: null,
         item: null,
         fillable:null,
+        resetpage:false,
         empty_query:empty_states.query,
         empty_action:empty_states.action,
         query: vaah().clone(empty_states.query),
@@ -475,6 +476,7 @@ export const useVehicleStore = defineStore({
         async paginate(event) {
             this.query.page = event.page+1;
             await this.getList();
+            this.resetpage = false;
             await this.updateUrlQueryString(this.query);
         },
         //---------------------------------------------------------------------
@@ -590,10 +592,20 @@ export const useVehicleStore = defineStore({
             if(query_object.filter){
                 query_object.filter = vaah().cleanObject(query_object.filter);
             }
+            // console.log(query_object.rows = 20);
 
             //reset url query string
             await this.$router.replace({query: null});
-
+            console.log(this.resetpage);
+            if(this.resetpage == true){
+                this.query.rows = 20;
+                this.query.page = 1;
+                // this.list.total = 20;
+                // this.rows_per_page = 20;
+                query_object.page = 1;
+                query_object.rows = 20;
+                this.resetpage == false;
+            }
             //replace url query string
             await this.$router.replace({query: query_object});
 
@@ -634,6 +646,7 @@ export const useVehicleStore = defineStore({
             {
                 this.query.filter[key] = null;
             }
+            this.resetpage = true;
             await this.updateUrlQueryString(this.query);
         },
         //---------------------------------------------------------------------

@@ -408,7 +408,7 @@ async function addfuel() {
                 </VhField>
 
                 <VhField label="Transmission">
-                    <Dropdown v-model="store.item.transmission" :options="store.assets.transmission_list" optionLabel="name" optionValue="value" placeholder="Select a type" class="w-full " />
+                    <Dropdown v-model="store.item.transmission" :options="store.assets.transmission_list" optionLabel="name" optionValue="id" placeholder="Select a type" class="w-full " />
                     <!--                    <select-->
 <!--                        class="w-full p-inputtext"-->
 <!--                        name="vehicles-transmission"-->

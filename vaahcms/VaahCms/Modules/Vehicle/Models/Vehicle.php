@@ -99,6 +99,12 @@ class Vehicle extends VaahModel
         )->select('id', 'uuid', 'first_name', 'last_name', 'email');
     }
 
+    public function taxoFuel(){
+        return $this->hasOne(Taxonomy::class,
+        'id','fuel_type'
+        );
+    }
+
     //-------------------------------------------------
     public function updatedByUser()
     {
@@ -287,6 +293,7 @@ class Vehicle extends VaahModel
 //        $list->isActiveFilter($request->filter);
         $list->trashedFilter($request->filter);
         $list->searchFilter($request->filter);
+        $list->with(['taxoFuel']);
 
         $rows = config('vaahcms.per_page');
 
@@ -299,7 +306,7 @@ class Vehicle extends VaahModel
 
         $response['success'] = true;
         $response['data'] = $list;
-//        $response['fuel_type_list'] = ['petrol','diesel','electric','cng','hybrid'];
+//dd($list);
         return $response;
 
 

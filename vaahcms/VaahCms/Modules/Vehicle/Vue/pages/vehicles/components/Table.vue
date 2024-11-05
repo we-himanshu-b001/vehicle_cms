@@ -68,8 +68,9 @@ const useVaah = vaah();
                      :sortable="true">
 
                  <template #body="prop">
-
-                     {{prop.data.fuel_type}}
+                        <span v-if="prop.data.fuel_type">
+                            {{prop.data.taxo_fuel.name}}
+                        </span>
                  </template>
 
              </Column>
