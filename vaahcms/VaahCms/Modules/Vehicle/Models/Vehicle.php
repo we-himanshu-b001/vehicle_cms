@@ -99,10 +99,16 @@ class Vehicle extends VaahModel
         )->select('id', 'uuid', 'first_name', 'last_name', 'email');
     }
 
-    public function taxoFuel(){
-        return $this->hasOne(Taxonomy::class,
-        'id','fuel_type'
-        );
+    public function fuel_Type(){
+        return $this->belongsTo(Taxonomy::class,
+        'fuel_type','id'
+        )->select('id', 'name');
+    }
+
+    public function transmission_type(){
+        return $this->belongsTo(Taxonomy::class,
+            'transmission','id'
+        )->select('id', 'name');
     }
 
     //-------------------------------------------------
@@ -293,7 +299,7 @@ class Vehicle extends VaahModel
 //        $list->isActiveFilter($request->filter);
         $list->trashedFilter($request->filter);
         $list->searchFilter($request->filter);
-        $list->with(['taxoFuel']);
+        $list->with(['fuel_Type']);
 
         $rows = config('vaahcms.per_page');
 
@@ -306,7 +312,7 @@ class Vehicle extends VaahModel
 
         $response['success'] = true;
         $response['data'] = $list;
-//dd($list);
+
         return $response;
 
 
@@ -471,7 +477,7 @@ class Vehicle extends VaahModel
     {
 
         $item = self::where('id', $id)
-            ->with(['country','createdByUser', 'updatedByUser', 'deletedByUser'])
+            ->with(['country','fuel_Type','transmission_type','createdByUser', 'updatedByUser', 'deletedByUser'])
             ->withTrashed()
             ->first();
 
@@ -491,6 +497,7 @@ class Vehicle extends VaahModel
         $response['success'] = true;
         $response['data'] = $item;
 //        $response['fuel_type_list'] = ['petrol','diesel','electric','cng','hybrid'];
+//        dd($item);
         return $response;
 
     }

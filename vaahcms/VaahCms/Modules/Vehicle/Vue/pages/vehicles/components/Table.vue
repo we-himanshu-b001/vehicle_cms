@@ -69,7 +69,7 @@ const useVaah = vaah();
 
                  <template #body="prop">
                         <span v-if="prop.data.fuel_type">
-                            {{prop.data.taxo_fuel.name}}
+                            {{prop.data.fuel__type.name}}
                         </span>
                  </template>
 
