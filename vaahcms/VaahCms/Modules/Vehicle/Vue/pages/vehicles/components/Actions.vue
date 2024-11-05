@@ -41,7 +41,7 @@ const toggleBulkMenuState = (event) => {
                     type="button"
                     @click="toggleSelectedMenuState"
                     data-testid="vehicles-actions-menu"
-                    aria-haspopup="true"
+                    aria-haspopup="true" aria-hidden="true"
                     aria-controls="overlay_menu">
                     <i class="pi pi-angle-down"></i>
                     <Badge v-if="store.action.items.length > 0"
@@ -100,7 +100,7 @@ const toggleBulkMenuState = (event) => {
                                     @click="toggleBulkMenuState"
                                     severity="danger" outlined
                                     data-testid="vehicles-actions-bulk-menu"
-                                    aria-haspopup="true"
+                                    aria-haspopup="true" aria-hidden="true"
                                     aria-controls="bulk_menu_state"
                                     class="ml-1 p-button-sm">
                                     <i class="pi pi-ellipsis-v"></i>

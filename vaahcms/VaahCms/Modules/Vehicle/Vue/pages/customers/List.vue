@@ -109,7 +109,7 @@ const toggleCreateMenu = (event) => {
                         class="p-button-sm"
                         data-testid="customers-create-menu"
                         icon="pi pi-angle-down"
-                        aria-haspopup="true"/>
+                        aria-haspopup="true" aria-hidden="true"/>
 
                     <Menu ref="create_menu"
                           :model="store.list_create_menu"

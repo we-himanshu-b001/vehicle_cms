@@ -72,7 +72,7 @@ const toggleItemMenu = (event) => {
                         @click="toggleItemMenu"
                         data-testid="vehicles-item-menu"
                         icon="pi pi-angle-down"
-                        aria-haspopup="true"/>
+                        aria-haspopup="true" aria-hidden="true"/>
 
                     <Menu ref="item_menu_state"
                           :model="store.item_menu_list"

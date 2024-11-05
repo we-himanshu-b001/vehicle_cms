@@ -40,7 +40,7 @@ const toggleBulkMenuState = (event) => {
                         type="button"
                         @click="toggleSelectedMenuState"
                         data-testid="taxonomies-actions-menu"
-                        aria-haspopup="true"
+                        aria-haspopup="true" aria-hidden="true"
                         aria-controls="overlay_menu"
                 >
                     <i class="pi pi-angle-down"></i>
@@ -59,7 +59,7 @@ const toggleBulkMenuState = (event) => {
                         icon="pi pi-ellipsis-h"
                         @click="toggleBulkMenuState"
                         data-testid="taxonomies-actions-bulk-menu"
-                        aria-haspopup="true"
+                        aria-haspopup="true" aria-hidden="true"
                         aria-controls="bulk_menu_state"
                         />
 

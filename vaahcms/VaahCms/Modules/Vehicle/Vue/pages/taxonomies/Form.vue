@@ -119,7 +119,7 @@ const openTaxonomyTypeModal = () => {
                             @click="toggleFormMenu"
                             data-testid="taxonomies-form-menu"
                             icon="pi pi-angle-down"
-                            aria-haspopup="true"
+                            aria-haspopup="true" aria-hidden="true"
                     />
 
                     <Menu ref="form_menu"

@@ -88,7 +88,7 @@ const toggleFormMenu = (event) => {
                         class="p-button-sm"
                         data-testid="customers-form-menu"
                         icon="pi pi-angle-down"
-                        aria-haspopup="true"/>
+                        aria-haspopup="true" aria-hidden="true"/>
 
                     <Menu ref="form_menu"
                           :model="store.form_menu_list"
