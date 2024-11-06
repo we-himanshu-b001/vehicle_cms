@@ -48,6 +48,11 @@ const items = ref([
                 icon: 'fa-regular fa-chart-bar',
                 route: "/consumerapplications"
             },
+            {
+                label: 'Charts',
+                icon: 'fa-regular fa-chart-bar',
+                route: "/charts"
+            },
         ]
     },
 ]);

@@ -19,6 +19,7 @@ import Tooltip from 'primevue/tooltip';
 import DynamicDialog from 'primevue/dynamicdialog';
 import Sidebar from 'primevue/sidebar';
 import TreeSelect from 'primevue/treeselect';
+import ApexChart from "vue3-apexcharts";
 
 //-------------/PrimeVue Imports
 
@@ -77,6 +78,7 @@ app.component('Menu', Menu);
 app.component('ProgressBar', ProgressBar);
 app.component('Toast', Toast);
 app.component('DynamicDialog', DynamicDialog);
+app.component('ApexChart', ApexChart);
 //-------------/PrimeVue Use
 
 // -------------CRUD PrimeVue Use
