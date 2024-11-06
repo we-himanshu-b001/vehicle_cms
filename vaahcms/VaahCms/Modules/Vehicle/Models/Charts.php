@@ -37,11 +37,14 @@ class Charts extends VaahModel
 //            ->get();
 
 
-        $chart_data = User::select(DB::raw("DATE_FORMAT($group_by_column, '%M') as month"), DB::raw("COUNT($date_column) as total_count"))
+//        $chart_data = User::select(DB::raw("DATE_FORMAT($group_by_column, '%M') as month"), DB::raw("COUNT($date_column) as total_count"))
+//            ->groupBy('month')
+//            ->orderBy('month')
+//            ->get();
+        $chart_data = User::selectRaw("MONTH(created_at) as month, COUNT(*) as total_count")
             ->groupBy('month')
             ->orderBy('month')
             ->get();
-//        dd($chart_data);
 
         // Prepare data for the chart
         $data = [
@@ -57,9 +60,9 @@ class Charts extends VaahModel
 
         // Dynamically assign data to total customers
         foreach ($chart_data as $item) {
-//            $month_index = (int)$item->month - 1;
+            $month_index = (int)$item->month - 1;
             foreach ($data as $key => $series) {
-                $data[$key]['data'][(int)$item->month] = match ($key) {
+                $data[$key]['data'][$month_index] = match ($key) {
                     0 => $item->total_count,
                     1 => $item->total_count - 5,
                 };

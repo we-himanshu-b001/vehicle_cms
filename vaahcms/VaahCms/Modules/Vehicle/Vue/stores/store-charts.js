@@ -1,7 +1,6 @@
 
 import {acceptHMRUpdate, defineStore} from 'pinia';
 import {vaah} from '../vaahvue/pinia/vaah';
-import {useConsumerApplicationStore} from "./store-consumerapplications"; // Adjust this import based on your setup
 
 let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
 let ajax_url = base_url + "/vehicle/chart";

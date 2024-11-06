@@ -3,7 +3,7 @@
 <!--    {{store.chartSeries}}-->
     <div v-if="store.chartOptions.xaxis && store.chartOptions.xaxis.categories">
         <CustomersCountBarChart
-            type="bar" title='Customer Line Chart' titleAlign='center' height=400 width=600
+            type="line" title='Customer Line Chart' titleAlign='center' height=400 width=600
             :chartOptions="{ xaxis:{categories: store.chartOptions.xaxis.categories }}"
             :chartSeries="store.chartSeries"
         />
@@ -24,6 +24,7 @@ import CustomersCountBarChart from "../charts/CustomersCountBarChart.vue";
 const store = useYourStore(); // Use the store
 // Fetch data when the component mounts
 onMounted(() => {
+    document.title = 'Chart - Vehicle';
     store.fetchCustomersCountData(); // Calls the method to fetch data
 });
 </script>
